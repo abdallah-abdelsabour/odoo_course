@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="hms_doctor_action" model="ir.actions.act_window">
+            <field name="name">Doctors</field>
+            <field name="res_model">hms.doctor</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="hms_doctor_menu" name="Doctors" parent="hms_patient_super_menu" action="hms_doctor_action" groups="hms_manager_group"/>
+
+        <record id="hms_doctor_form_view" model="ir.ui.view">
+            <field name="name">hms doctor form view</field>
+            <field name="model">hms.loghistory</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Primary">
+                                <field name="description"/>
+                                <field name="patients_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

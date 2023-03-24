@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+        <record id="hms_patient_form_view" model="ir.ui.view">
+            <field name="name">hms patient form view</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="serious" string="set to Serious"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Primary">
+                                <field name="First_name" required="True"/>
+                                <field name="Birth_date"/>
+                                <field name="email"/>
+                                <field name="Age"/>
+                                <field name="CR_ratio" attrs="{'required':[('PCR','=',True)]}"/>
+                                <field name="image" widget="image"/>
+                            </group>
+                            <group string="Secondary">
+                                <field name="Last_name" required="True"/>
+                                <field name="Blood_Type"/>
+                                <field name="PCR" />
+                                <field name="Address"/>
+                                <field name="department_id" domain="[('is_opened','=',True)]"/>
+                                <field name="Capacity"/>
+                                <field name="doctor_id" widget="many2many_tags" attrs="{'readonly':[('department_id','=',False)]}"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="History">
+                                <field name="History" attrs="{'invisible':[('Age','&lt;',50)]}"/>
+                            </page>
+                            <page string="Log History">
+                                <field name="log_id"/>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hms_patient_tree_view" model="ir.ui.view">
+            <field name="name">hms.patient.tree.view</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="First_name"/>
+                    <field name="Blood_Type"/>
+                    <field name="Age"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hms_patient_action" model="ir.actions.act_window">
+                <field name="name">Patients</field>
+            <field name="res_model">hms.patient</field>
+        </record>
+
+        <menuitem id="hms_patient_super_menu" name="HMS"/>
+        <menuitem id="hms_patient_menu" parent="hms_patient_super_menu" action="hms_patient_action"/>
+    </data>
+</odoo>
